@@ -6,6 +6,7 @@ import (
 	"github.com/IRFAN374/goRestApi/repository/mygrocery"
 )
 
+// @microgen middleware,logging
 type Service interface {
 	Add(ctx context.Context) (err error)
 	GetGrocery(ctx context.Context) (err error)
