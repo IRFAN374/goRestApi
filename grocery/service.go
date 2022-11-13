@@ -8,7 +8,7 @@ import (
 
 // @microgen middleware,logging
 type Service interface {
-	Add(ctx context.Context) (err error)
+	AddGrocery(ctx context.Context) (err error)
 	GetGrocery(ctx context.Context) (err error)
 	GetAllGrocery(ctx context.Context) (err error)
 
@@ -26,12 +26,11 @@ func NewService(groceryRepo mygrocery.Repository) *service {
 	}
 }
 
-func (s *service) Add(ctx context.Context) (err error) {
+func (s *service) AddGrocery(ctx context.Context) (err error) {
 
 	err = s.groceryrepo.Add(ctx)
 	return
 }
-
 
 func (s *service) GetGrocery(ctx context.Context) (err error) {
 
@@ -56,5 +55,3 @@ func (s *service) DeleteGrocery(ctx context.Context) (err error) {
 	err = s.groceryrepo.DeleteGrocery(ctx)
 	return
 }
-
-
