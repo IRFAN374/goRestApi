@@ -37,7 +37,7 @@ func NewHTTPClient(u *url.URL, opts ...httpkit.ClientOption) transport.Endpoints
 		DeleteGroceryEndpoint: httpkit.NewClient(
 			"DELETE", u,
 			_Encode_DeleteGrocery_Request,
-			_Decode_UpdateGrocery_Response,
+			_Decode_DeleteGrocery_Response,
 			opts...,
 		).Endpoint(),
 	}

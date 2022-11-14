@@ -5,6 +5,7 @@ import (
 	"time"
 
 	service "github.com/IRFAN374/goRestApi/grocery"
+	model "github.com/IRFAN374/goRestApi/model"
 	log "github.com/go-kit/kit/log"
 )
 
@@ -22,34 +23,38 @@ type logginMiddleware struct {
 	next   service.Service
 }
 
-func (M logginMiddleware) AddGrocery(ctx context.Context) (err error) {
+func (M logginMiddleware) AddGrocery(ctx context.Context, grocery model.Grocery) (err error) {
 
 	defer func(begin time.Time) {
 		M.logger.Log(
 			"method", "AddGrocery",
-			"request", logAddGroceryRequest{},
+			"request", logAddGroceryRequest{
+				grocery: grocery,
+			},
 			"err", err,
 			"took", time.Since(begin))
 
 	}(time.Now())
 
-	return M.next.AddGrocery(ctx)
+	return M.next.AddGrocery(ctx, grocery)
 }
 
-func (M logginMiddleware) GetGrocery(ctx context.Context) (err error) {
+func (M logginMiddleware) GetGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 
 	defer func(begin time.Time) {
 		M.logger.Log(
 			"method", "GetGrocery",
-			"request", logGetGroceryRequest{},
+			"request", logGetGroceryRequest{
+				Name: Name,
+			},
 			"err", err,
 			"took", time.Since(begin))
 
 	}(time.Now())
-	return M.next.GetGrocery(ctx)
+	return M.next.GetGrocery(ctx, Name)
 }
 
-func (M logginMiddleware) GetAllGrocery(ctx context.Context) (err error) {
+func (M logginMiddleware) GetAllGrocery(ctx context.Context) (groceries []model.Grocery, err error) {
 	defer func(begin time.Time) {
 		M.logger.Log(
 			"method", "GetAllGrocery",
@@ -61,34 +66,46 @@ func (M logginMiddleware) GetAllGrocery(ctx context.Context) (err error) {
 	return M.next.GetAllGrocery(ctx)
 }
 
-func (M logginMiddleware) UpdateGrocery(ctx context.Context) (err error) {
+func (M logginMiddleware) UpdateGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 	defer func(begin time.Time) {
 		M.logger.Log(
 			"method", "UpdateGrocery",
-			"request", logUpdateGroceryRequest{},
+			"request", logUpdateGroceryRequest{
+				Name: Name,
+			},
 			"err", err,
 			"took", time.Since(begin))
 
 	}(time.Now())
-	return M.next.UpdateGrocery(ctx)
+	return M.next.UpdateGrocery(ctx, Name)
 }
 
-func (M logginMiddleware) DeleteGrocery(ctx context.Context) (err error) {
+func (M logginMiddleware) DeleteGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 	defer func(begin time.Time) {
 		M.logger.Log(
 			"method", "DeleteGrocery",
-			"request", logDeleteGroceryRequest{},
+			"request", logDeleteGroceryRequest{
+				Name: Name,
+			},
 			"err", err,
 			"took", time.Since(begin))
 
 	}(time.Now())
-	return M.next.DeleteGrocery(ctx)
+	return M.next.DeleteGrocery(ctx, Name)
 }
 
 type (
-	logAddGroceryRequest    struct{}
-	logGetGroceryRequest    struct{}
+	logAddGroceryRequest struct {
+		grocery model.Grocery
+	}
+	logGetGroceryRequest struct {
+		Name string
+	}
 	logGetAllGroceryRequest struct{}
-	logUpdateGroceryRequest struct{}
-	logDeleteGroceryRequest struct{}
+	logUpdateGroceryRequest struct {
+		Name string
+	}
+	logDeleteGroceryRequest struct {
+		Name string
+	}
 )

@@ -1,18 +1,36 @@
 package transport
 
+import model "github.com/IRFAN374/goRestApi/model"
+
 type (
-	AddGroceryRequest  struct{}
+	AddGroceryRequest struct {
+		grocery model.Grocery
+	}
 	AddGroceryResponse struct{}
 
-	GetGroceryRequest  struct{}
-	GetGroceryResponse struct{}
+	GetGroceryRequest struct {
+		Name string
+	}
+	GetGroceryResponse struct {
+		grocery model.Grocery
+	}
 
 	GetAllGroceryRequest  struct{}
-	GetAllGroceryResponse struct{}
+	GetAllGroceryResponse struct {
+		groceries []model.Grocery
+	}
 
-	UpdateGroceryRequest  struct{}
-	UpdateGroceryResponse struct{}
+	UpdateGroceryRequest struct {
+		Name string
+	}
+	UpdateGroceryResponse struct {
+		grocery model.Grocery
+	}
 
-	DeleteGroceryRequest  struct{}
-	DeleteGroceryResponse struct{}
+	DeleteGroceryRequest struct {
+		Name string
+	}
+	DeleteGroceryResponse struct {
+		grocery model.Grocery
+	}
 )

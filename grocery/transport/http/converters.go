@@ -110,8 +110,8 @@ func _Encode_AddGrocery_Request(ctx context.Context, r *http.Request, request in
 }
 
 func _Encode_GetGrocery_Request(ctx context.Context, r *http.Request, request interface{}) error {
-	_ = request.(*transport.GetGroceryRequest)
-	r.URL.Path = path.Join(r.URL.Path, fmt.Sprintf("/getgrocery"))
+	req := request.(*transport.GetGroceryRequest)
+	r.URL.Path = path.Join(r.URL.Path, fmt.Sprintf("/getgrocery/{%s}", req.Name))
 	return CommonHTTPRequestEncoder(ctx, r, request)
 }
 
@@ -121,14 +121,14 @@ func _Encode_GetAllGrocery_Request(ctx context.Context, r *http.Request, request
 	return CommonHTTPRequestEncoder(ctx, r, request)
 }
 func _Encode_UpdateGrocery_Request(ctx context.Context, r *http.Request, request interface{}) error {
-	_ = request.(*transport.UpdateGroceryRequest)
-	r.URL.Path = path.Join(r.URL.Path, fmt.Sprintf("/updategrocery"))
+	req := request.(*transport.UpdateGroceryRequest)
+	r.URL.Path = path.Join(r.URL.Path, fmt.Sprintf("/updategrocery/{%s}", req.Name))
 	return CommonHTTPRequestEncoder(ctx, r, request)
 }
 
 func _Encode_DeleteGrocery_Request(ctx context.Context, r *http.Request, request interface{}) error {
-	_ = request.(*transport.GetGroceryRequest)
-	r.URL.Path = path.Join(r.URL.Path, fmt.Sprintf("/deletegrocery"))
+	req := request.(*transport.GetGroceryRequest)
+	r.URL.Path = path.Join(r.URL.Path, fmt.Sprintf("/deletegrocery/{%s}", req.Name))
 	return CommonHTTPRequestEncoder(ctx, r, request)
 }
 

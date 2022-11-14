@@ -3,17 +3,18 @@ package grocery
 import (
 	"context"
 
+	"github.com/IRFAN374/goRestApi/model"
 	"github.com/IRFAN374/goRestApi/repository/mygrocery"
 )
 
 // @microgen middleware,logging
 type Service interface {
-	AddGrocery(ctx context.Context) (err error)
-	GetGrocery(ctx context.Context) (err error)
-	GetAllGrocery(ctx context.Context) (err error)
+	AddGrocery(ctx context.Context, grocery model.Grocery) (err error)
+	GetGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error)
+	GetAllGrocery(ctx context.Context) (groceries []model.Grocery, err error)
 
-	UpdateGrocery(ctx context.Context) (err error)
-	DeleteGrocery(ctx context.Context) (err error)
+	UpdateGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error)
+	DeleteGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error)
 }
 
 type service struct {
@@ -26,31 +27,31 @@ func NewService(groceryRepo mygrocery.Repository) *service {
 	}
 }
 
-func (s *service) AddGrocery(ctx context.Context) (err error) {
+func (s *service) AddGrocery(ctx context.Context, grocery model.Grocery) (err error) {
 
 	err = s.groceryrepo.AddGrocery(ctx)
 	return
 }
 
-func (s *service) GetGrocery(ctx context.Context) (err error) {
+func (s *service) GetGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 
 	err = s.groceryrepo.GetGrocery(ctx)
 	return
 }
 
-func (s *service) GetAllGrocery(ctx context.Context) (err error) {
+func (s *service) GetAllGrocery(ctx context.Context) (groceries []model.Grocery, err error) {
 
 	err = s.groceryrepo.GetAllGrocery(ctx)
 	return
 }
 
-func (s *service) UpdateGrocery(ctx context.Context) (err error) {
+func (s *service) UpdateGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 
 	err = s.groceryrepo.UpdateGrocery(ctx)
 	return
 }
 
-func (s *service) DeleteGrocery(ctx context.Context) (err error) {
+func (s *service) DeleteGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 
 	err = s.groceryrepo.DeleteGrocery(ctx)
 	return
