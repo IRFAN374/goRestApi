@@ -10,7 +10,7 @@ var (
 )
 
 type Repository interface {
-	Add(ctx context.Context) (err error)
+	AddGrocery(ctx context.Context) (err error)
 	GetGrocery(ctx context.Context) (err error)
 	GetAllGrocery(ctx context.Context) (err error)
 

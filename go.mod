@@ -7,7 +7,12 @@ require github.com/gorilla/mux v1.8.0
 require (
 	github.com/go-kit/log v0.2.0 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
+	github.com/oklog/oklog v0.3.2 // indirect
+	github.com/oklog/run v1.1.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
+	go.uber.org/atomic v1.9.0 // indirect
+	go.uber.org/multierr v1.7.0 // indirect
+	go.uber.org/zap v1.23.0 // indirect
 	google.golang.org/grpc v1.40.0 // indirect
 )
 

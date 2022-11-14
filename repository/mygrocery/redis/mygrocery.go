@@ -25,8 +25,7 @@ func (repo *repository) getKey(userId int) string {
 	return fmt.Sprintf("%s:%d", userIdPrefix, userId)
 }
 
-
-func (repo *repository) Add(ctx context.Context) (err error) {
+func (repo *repository) AddGrocery(ctx context.Context) (err error) {
 	key := repo.getKey(1)
 
 	_, err = repo.client.SAdd(ctx, key, 1).Result()
@@ -36,7 +35,6 @@ func (repo *repository) Add(ctx context.Context) (err error) {
 
 	return
 }
-
 
 func (repo *repository) GetGrocery(ctx context.Context) (err error) {
 	key := repo.getKey(1)

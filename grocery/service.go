@@ -28,7 +28,7 @@ func NewService(groceryRepo mygrocery.Repository) *service {
 
 func (s *service) AddGrocery(ctx context.Context) (err error) {
 
-	err = s.groceryrepo.Add(ctx)
+	err = s.groceryrepo.AddGrocery(ctx)
 	return
 }
 
