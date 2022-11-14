@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	model "github.com/IRFAN374/goRestApi/model"
 	"github.com/go-redis/redis/v8"
 )
 
@@ -25,7 +26,7 @@ func (repo *repository) getKey(userId int) string {
 	return fmt.Sprintf("%s:%d", userIdPrefix, userId)
 }
 
-func (repo *repository) AddGrocery(ctx context.Context) (err error) {
+func (repo *repository) AddGrocery(ctx context.Context, grocery model.Grocery) (err error) {
 	key := repo.getKey(1)
 
 	_, err = repo.client.SAdd(ctx, key, 1).Result()
@@ -36,7 +37,7 @@ func (repo *repository) AddGrocery(ctx context.Context) (err error) {
 	return
 }
 
-func (repo *repository) GetGrocery(ctx context.Context) (err error) {
+func (repo *repository) GetGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 	key := repo.getKey(1)
 
 	_, err = repo.client.SAdd(ctx, key, 1).Result()
@@ -47,7 +48,7 @@ func (repo *repository) GetGrocery(ctx context.Context) (err error) {
 	return
 }
 
-func (repo *repository) GetAllGrocery(ctx context.Context) (err error) {
+func (repo *repository) GetAllGrocery(ctx context.Context) (groceries []model.Grocery, err error) {
 	key := repo.getKey(1)
 
 	_, err = repo.client.SAdd(ctx, key, 1).Result()
@@ -58,7 +59,7 @@ func (repo *repository) GetAllGrocery(ctx context.Context) (err error) {
 	return
 }
 
-func (repo *repository) UpdateGrocery(ctx context.Context) (err error) {
+func (repo *repository) UpdateGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 	key := repo.getKey(1)
 
 	_, err = repo.client.SAdd(ctx, key, 1).Result()
@@ -69,7 +70,7 @@ func (repo *repository) UpdateGrocery(ctx context.Context) (err error) {
 	return
 }
 
-func (repo *repository) DeleteGrocery(ctx context.Context) (err error) {
+func (repo *repository) DeleteGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 	key := repo.getKey(1)
 
 	_, err = repo.client.SRem(ctx, key, 1).Result()

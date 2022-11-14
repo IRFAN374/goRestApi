@@ -29,30 +29,30 @@ func NewService(groceryRepo mygrocery.Repository) *service {
 
 func (s *service) AddGrocery(ctx context.Context, grocery model.Grocery) (err error) {
 
-	err = s.groceryrepo.AddGrocery(ctx)
+	err = s.groceryrepo.AddGrocery(ctx, grocery)
 	return
 }
 
 func (s *service) GetGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 
-	err = s.groceryrepo.GetGrocery(ctx)
+	grocery, err = s.groceryrepo.GetGrocery(ctx, Name)
 	return
 }
 
 func (s *service) GetAllGrocery(ctx context.Context) (groceries []model.Grocery, err error) {
 
-	err = s.groceryrepo.GetAllGrocery(ctx)
+	groceries, err = s.groceryrepo.GetAllGrocery(ctx)
 	return
 }
 
 func (s *service) UpdateGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 
-	err = s.groceryrepo.UpdateGrocery(ctx)
+	grocery, err = s.groceryrepo.UpdateGrocery(ctx, Name)
 	return
 }
 
 func (s *service) DeleteGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
 
-	err = s.groceryrepo.DeleteGrocery(ctx)
+	grocery, err = s.groceryrepo.DeleteGrocery(ctx, Name)
 	return
 }
