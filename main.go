@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+
 	"flag"
 	"fmt"
-	stdlog "log"
+
+	// stdlog "log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -18,7 +20,7 @@ import (
 	grocerysvctransporthttp "github.com/IRFAN374/goRestApi/grocery/transport/http"
 	"github.com/oklog/oklog/pkg/group"
 
-	"github.com/IRFAN374/goRestApi/handlers"
+	// "github.com/IRFAN374/goRestApi/handlers"
 
 	"github.com/IRFAN374/goRestApi/repository/mygrocery"
 	mygroceryRedisRepo "github.com/IRFAN374/goRestApi/repository/mygrocery/redis"
@@ -56,7 +58,7 @@ func main() {
 
 	// redis client
 	redisClient := redis.NewClusterClient(&redis.ClusterOptions{
-		Addrs: []string{"127.0.0.1:7000"},
+		Addrs: []string{"127.0.0.1:6379"},
 	})
 
 	var httpServerBefore = []kitHttp.ServerOption{
@@ -83,19 +85,24 @@ func main() {
 
 		grocerySvcEndpoints := grocerysvctransport.Endpoints(grocerySvc)
 		grocerySvcHandler := grocerysvctransporthttp.NewHTTPHandler(&grocerySvcEndpoints, httpServerBefore...)
-		httpRouter.PathPrefix("/api/vi").Handler(grocerySvcHandler)
+		httpRouter.PathPrefix("/api").Handler(grocerySvcHandler)
 
 	}
+
+	httpRouter.PathPrefix("/health").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		return
+	})
 
 	var server group.Group
 	{
 		httpServer := &http.Server{
-			Addr:    ":8080",
+			Addr:    ":9000",
 			Handler: httpRouter,
 		}
 
 		server.Add(func() error {
-			fmt.Printf("starting http server, port:%d \n", 8080)
+			fmt.Printf("starting http server, port:%d \n", 9000)
 			return httpServer.ListenAndServe()
 		}, func(err error) {
 
@@ -130,15 +137,15 @@ func main() {
 
 	fmt.Printf("exiting...  errors: %v\n", server.Run())
 
-	router := mux.NewRouter().StrictSlash(false)
+	// router := mux.NewRouter().StrictSlash(false)
 
-	router.HandleFunc("/allgrocery", handlers.AddGrocery).Methods("GET")
-	router.HandleFunc("/grocery/{name}", handlers.GetGrocery).Methods("GET")
-	router.HandleFunc("/grocery", handlers.AddGrocery).Methods("POST")
-	router.HandleFunc("/grocery/{name}", handlers.UpdateGrocery).Methods("PUT")
-	router.HandleFunc("/grocery/{name}", handlers.DeleteGrocery).Methods("DELETE")
+	// router.HandleFunc("/allgrocery", handlers.AddGrocery).Methods("GET")
+	// router.HandleFunc("/grocery/{name}", handlers.GetGrocery).Methods("GET")
+	// router.HandleFunc("/grocery", handlers.AddGrocery).Methods("POST")
+	// router.HandleFunc("/grocery/{name}", handlers.UpdateGrocery).Methods("PUT")
+	// router.HandleFunc("/grocery/{name}", handlers.DeleteGrocery).Methods("DELETE")
 
-	stdlog.Fatal(http.ListenAndServe(":8080", router))
+	// stdlog.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func getLogger(serviceName string, level zapcore.Level) (debugL, infoL, errorL log.Logger, zapLogger *zap.Logger) {

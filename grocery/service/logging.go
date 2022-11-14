@@ -29,7 +29,7 @@ func (M logginMiddleware) AddGrocery(ctx context.Context, grocery model.Grocery)
 		M.logger.Log(
 			"method", "AddGrocery",
 			"request", logAddGroceryRequest{
-				grocery: grocery,
+				Grocery: grocery,
 			},
 			"err", err,
 			"took", time.Since(begin))
@@ -96,16 +96,16 @@ func (M logginMiddleware) DeleteGrocery(ctx context.Context, Name string) (groce
 
 type (
 	logAddGroceryRequest struct {
-		grocery model.Grocery
+		Grocery model.Grocery `json:"grocery"`
 	}
 	logGetGroceryRequest struct {
-		Name string
+		Name string `json:"name"`
 	}
 	logGetAllGroceryRequest struct{}
 	logUpdateGroceryRequest struct {
-		Name string
+		Name string `json:"name"`
 	}
 	logDeleteGroceryRequest struct {
-		Name string
+		Name string `json:"name"`
 	}
 )

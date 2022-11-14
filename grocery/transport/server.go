@@ -2,6 +2,7 @@ package transport
 
 import (
 	"context"
+	"fmt"
 
 	grocery "github.com/IRFAN374/goRestApi/grocery"
 	endpoint "github.com/go-kit/kit/endpoint"
@@ -20,7 +21,8 @@ func Endpoints(svc grocery.Service) EndpointsSet {
 func AddGroceryEndpoint(svc grocery.Service) endpoint.Endpoint {
 	return func(arg0 context.Context, request interface{}) (response interface{}, err error) {
 		req := request.(*AddGroceryRequest)
-		res0 := svc.AddGrocery(arg0, req.grocery)
+		fmt.Println("req:", req.Grocery)
+		res0 := svc.AddGrocery(arg0, req.Grocery)
 		return &AddGroceryResponse{}, res0
 	}
 }
@@ -31,7 +33,7 @@ func GetGroceryEndpoint(svc grocery.Service) endpoint.Endpoint {
 		res0, res1 := svc.GetGrocery(arg0, req.Name)
 
 		return &GetGroceryResponse{
-			grocery: res0,
+			Grocery: res0,
 		}, res1
 
 	}
@@ -43,7 +45,7 @@ func GetAllGroceryEndpoint(svc grocery.Service) endpoint.Endpoint {
 		res0, res1 := svc.GetAllGrocery(arg0)
 
 		return &GetAllGroceryResponse{
-			groceries: res0,
+			Groceries: res0,
 		}, res1
 
 	}
@@ -55,7 +57,7 @@ func UpdateGroceryEndpoint(svc grocery.Service) endpoint.Endpoint {
 		res0, res1 := svc.UpdateGrocery(arg0, req.Name)
 
 		return &UpdateGroceryResponse{
-			grocery: res0,
+			Grocery: res0,
 		}, res1
 
 	}
@@ -67,7 +69,7 @@ func DeleteGroceryEndpoint(svc grocery.Service) endpoint.Endpoint {
 		res0, res1 := svc.DeleteGrocery(arg0, req.Name)
 
 		return &DeleteGroceryResponse{
-			grocery: res0,
+			Grocery: res0,
 		}, res1
 
 	}

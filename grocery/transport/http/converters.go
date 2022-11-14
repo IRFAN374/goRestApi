@@ -35,6 +35,8 @@ func _Decode_AddGrocery_Request(_ context.Context, r *http.Request) (interface{}
 	var req transport.AddGroceryRequest
 	err := json.NewDecoder(r.Body).Decode(&req)
 
+	fmt.Println("Decoding request body", req)
+
 	return &req, err
 }
 

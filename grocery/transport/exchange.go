@@ -4,33 +4,33 @@ import model "github.com/IRFAN374/goRestApi/model"
 
 type (
 	AddGroceryRequest struct {
-		grocery model.Grocery
+		Grocery model.Grocery `json:"grocery"`
 	}
 	AddGroceryResponse struct{}
 
 	GetGroceryRequest struct {
-		Name string
+		Name string `json:"name"`
 	}
 	GetGroceryResponse struct {
-		grocery model.Grocery
+		Grocery model.Grocery `json:"grocery"`
 	}
 
 	GetAllGroceryRequest  struct{}
 	GetAllGroceryResponse struct {
-		groceries []model.Grocery
+		Groceries []model.Grocery `json:"groceries"`
 	}
 
 	UpdateGroceryRequest struct {
-		Name string
+		Name string `json:"name"`
 	}
 	UpdateGroceryResponse struct {
-		grocery model.Grocery
+		Grocery model.Grocery `json:"grocery"`
 	}
 
 	DeleteGroceryRequest struct {
-		Name string
+		Name string `json:"name"`
 	}
 	DeleteGroceryResponse struct {
-		grocery model.Grocery
+		Grocery model.Grocery `json:"grocery"`
 	}
 )

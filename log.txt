@@ -1,0 +1,2 @@
+{"level":"DEBUG","ts":"2022-11-15T00:18:17.5945611+05:30","msg":"","service":"-grocery-rest-api","repository":"mygrocery Repository","method":"AddGrocery","request":{"grocery":{"name":"Chicken Malai Tikka","quantity":2}},"err":"ERR This instance has cluster support disabled","took":"7.4915ms"}
+{"level":"DEBUG","ts":"2022-11-15T00:18:17.5947012+05:30","msg":"","service":"-grocery-rest-api","service":"gracery service","method":"AddGrocery","request":{"grocery":{"name":"Chicken Malai Tikka","quantity":2}},"err":"ERR This instance has cluster support disabled","took":"7.6316ms"}

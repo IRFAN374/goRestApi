@@ -22,14 +22,14 @@ func NewRepository(client *redis.ClusterClient) *repository {
 	}
 }
 
-func (repo *repository) getKey(userId int) string {
-	return fmt.Sprintf("%s:%d", userIdPrefix, userId)
+func (repo *repository) getKey(Name string) string {
+	return fmt.Sprintf("%s:%s", userIdPrefix, Name)
 }
 
 func (repo *repository) AddGrocery(ctx context.Context, grocery model.Grocery) (err error) {
-	key := repo.getKey(1)
+	key := repo.getKey(grocery.Name)
 
-	_, err = repo.client.SAdd(ctx, key, 1).Result()
+	_, err = repo.client.SAdd(ctx, key, grocery).Result()
 	if err != nil {
 		return
 	}
@@ -38,9 +38,9 @@ func (repo *repository) AddGrocery(ctx context.Context, grocery model.Grocery) (
 }
 
 func (repo *repository) GetGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
-	key := repo.getKey(1)
+	key := repo.getKey(Name)
 
-	_, err = repo.client.SAdd(ctx, key, 1).Result()
+	_, err = repo.client.SMembers(ctx, key).Result()
 	if err != nil {
 		return
 	}
@@ -49,7 +49,7 @@ func (repo *repository) GetGrocery(ctx context.Context, Name string) (grocery mo
 }
 
 func (repo *repository) GetAllGrocery(ctx context.Context) (groceries []model.Grocery, err error) {
-	key := repo.getKey(1)
+	key := repo.getKey("Hi")
 
 	_, err = repo.client.SAdd(ctx, key, 1).Result()
 	if err != nil {
@@ -60,7 +60,7 @@ func (repo *repository) GetAllGrocery(ctx context.Context) (groceries []model.Gr
 }
 
 func (repo *repository) UpdateGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
-	key := repo.getKey(1)
+	key := repo.getKey(Name)
 
 	_, err = repo.client.SAdd(ctx, key, 1).Result()
 	if err != nil {
@@ -71,7 +71,7 @@ func (repo *repository) UpdateGrocery(ctx context.Context, Name string) (grocery
 }
 
 func (repo *repository) DeleteGrocery(ctx context.Context, Name string) (grocery model.Grocery, err error) {
-	key := repo.getKey(1)
+	key := repo.getKey(Name)
 
 	_, err = repo.client.SRem(ctx, key, 1).Result()
 	if err != nil {
